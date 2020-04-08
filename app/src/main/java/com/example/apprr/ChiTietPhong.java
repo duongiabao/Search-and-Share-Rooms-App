@@ -19,7 +19,7 @@ public class ChiTietPhong extends AppCompatActivity {
     Toolbar toolbarCT;
     ImageView imageViewCT;
     TextView txtTen,txtGia,txtMota,txtPhone,txtPerson;
-
+    //tesst
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
