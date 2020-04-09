@@ -254,8 +254,8 @@ public class MainActivity extends AppCompatActivity {
         }
         viewflipper.setFlipInterval(5000);
         viewflipper.setAutoStart(true);
-        Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_in_right);
-        Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.slide_out_right);
+        Animation animation_slide_in = AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.slide_in_left);
+        Animation animation_slide_out = AnimationUtils.loadAnimation(getApplicationContext(),android.R.anim.slide_out_right);
         viewflipper.setInAnimation(animation_slide_in);
         viewflipper.setOutAnimation(animation_slide_out);
 

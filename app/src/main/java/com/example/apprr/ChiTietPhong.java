@@ -58,7 +58,7 @@ public class ChiTietPhong extends AppCompatActivity {
                 .placeholder(R.drawable.aa2)
                 .error(R.drawable.aa)
                 .into(imageViewCT);
-        txtPhone.setText("Sô điện thoại: " +phone);
+        txtPhone.setText("Số điện thoại: " +phone);
         txtPerson.setText(person);
     }
 

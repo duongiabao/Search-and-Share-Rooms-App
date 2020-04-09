@@ -9,7 +9,7 @@
         android:id="@+id/toolBar_map"
         android:background="#3F51B5"
         app:titleTextColor="#FFFFFF"
-        app:title="Dia chi"
+        app:title="Địa chỉ"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
 
@@ -22,11 +22,11 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_margin="10dp"
+            android:layout_margin="25dp"
             android:gravity="center"
-            android:textSize="30sp"
+            android:textSize="25sp"
             android:textColor="#ffff"
-            android:text="thong tin ve chung toi"
+            android:text="THÔNG TIN VỀ CHÚNG TÔI"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -45,7 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="#ffff"
-                android:text="Dia chi: 19 Đường Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Hồ Chí Minh 758307, Việt Nam"
+                android:text="Địa chỉ: 19 Đường Nguyễn Hữu Thọ, Tân Hưng, Quận 7, Hồ Chí Minh 758307, Việt Nam"
                 android:textSize="20sp"/>
 
         </LinearLayout>

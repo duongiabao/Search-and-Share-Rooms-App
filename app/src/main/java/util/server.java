@@ -1,7 +1,7 @@
 package util;
 
 public class server {
-    public static String localhost = "192.168.1.2";
+    public static String localhost = "192.168.1.7";
 
     public static String linkPhong ="http://" + localhost + "/finalhost/giatriphong.php?page=";
 

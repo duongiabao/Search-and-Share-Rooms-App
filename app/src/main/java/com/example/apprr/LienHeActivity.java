@@ -13,12 +13,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.widget.Toolbar;
 
 public class LienHeActivity extends AppCompatActivity {
     TextView txtLienheName;
     TextView txtLienheEmail;
     TextView txtLienhePhone;
-
+    Toolbar toolbar;
     private static final int REQUEST_CALL=1;
 
 
@@ -31,7 +32,9 @@ public class LienHeActivity extends AppCompatActivity {
         txtLienheName= findViewById(R.id.textview_lienhe_name);
         txtLienheEmail= findViewById(R.id.text_lienhe_email);
         txtLienhePhone= findViewById(R.id.text_lienhe_phone);
+        toolbar = (Toolbar) findViewById(R.id.toolBarLH);
 
+        actionBar();
         txtLienhePhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,6 +51,18 @@ public class LienHeActivity extends AppCompatActivity {
         });
 
 
+
+    }
+
+    private void actionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
     }
 
