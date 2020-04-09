@@ -29,6 +29,20 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Choose the district:"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewupdate"
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content" />
+
+            <TextView
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:id="@+id/textView10"
@@ -39,21 +53,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewStyleUpadate"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <TextView
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:id="@+id/textView8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Choose the district:" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewupdate"
-                android:layout_width="match_parent"
-
                 android:layout_height="wrap_content" />
 
 
