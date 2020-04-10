@@ -27,16 +27,20 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Request;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import HostActivity.HostActivity;
+import HostModel.Location;
 import LoginActivity.HomeActivity;
 import UserAdapter.loaiPhongAdapter;
+import UserAdapter.location;
 import UserAdapter.phongXTAdapter;
 import Usermodel.loaiPhong;
 import Usermodel.phongXT;
@@ -63,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
 
+    ArrayList<Location> arrL;
+    location locationAdapter;
+    RecyclerView recyclerviewL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,12 +83,44 @@ public class MainActivity extends AppCompatActivity {
             getDataPhongXT();
             GetOnItemListView();
             addRoom();
+            getLocation();
 
         }else{
             checkCon.showToast(getApplicationContext(),"Hay kiem tra lai ket noi");
             finish();
         }
 
+    }
+
+    private void getLocation() {
+        final RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(server.linkLocation, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                if (response != null) {
+                    int Id = 0;
+                    String Location = "";
+                    for (int i = 0; i < response.length(); i++) {
+                        try {
+                            JSONObject jsonObject = response.getJSONObject(i);
+                            Id = jsonObject.getInt("Id");
+                            Location =jsonObject.getString("Location");
+                            arrL.add(new Location(Id,Location));
+                            locationAdapter.notifyDataSetChanged();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
     }
 
     private void addRoom() {
@@ -294,5 +333,11 @@ public class MainActivity extends AppCompatActivity {
         recyclerview.setAdapter(PXTAdapter);
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        recyclerviewL = (RecyclerView) findViewById(R.id.recyclerView1);
+        arrL = new ArrayList<>();
+        locationAdapter = new location(getApplicationContext(),arrL);
+        recyclerviewL.setHasFixedSize(true);
+        recyclerviewL.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
+        recyclerviewL.setAdapter(locationAdapter);
     }
 }

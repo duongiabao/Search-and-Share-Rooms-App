@@ -13,18 +13,23 @@ import com.example.apprr.R;
 
 import java.util.ArrayList;
 
+import HostModel.Location;
 import Usermodel.phongXT;
 
 
 public class location extends RecyclerView.Adapter<location.ItemHolder> {
 
     Context context;
-    ArrayList<phongXT> arrPQ;
+    ArrayList<Location> arrPQ;
 
-    public location(Context context, ArrayList<phongXT> arrPQ) {
+    public location(Context context, ArrayList<Location> arrPQ) {
         this.context = context;
         this.arrPQ = arrPQ;
     }
+
+
+
+
 
     @NonNull
     @Override
@@ -37,8 +42,8 @@ public class location extends RecyclerView.Adapter<location.ItemHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ItemHolder holder, int position) {
-        phongXT phongxt =arrPQ.get(position);
-        holder.txtQuan.setText(phongxt.getLocation_id());
+        Location location = arrPQ.get(position);
+        holder.txtQuan.setText(location.getLocation());
     }
 
     @Override

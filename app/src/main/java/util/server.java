@@ -4,7 +4,7 @@ public class server {
     public static String localhost = "192.168.1.7";
 
     public static String linkPhong ="http://" + localhost + "/finalhost/giatriphong.php?page=";
-
+    public static String linkLocation = "http://" + localhost + "/finalhost/location.php";
 
 
     public static String urlget = "http://"+localhost+"/finalhost/gethost.php";
