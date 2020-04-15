@@ -13,9 +13,9 @@ public class Host implements Serializable {
     private int LocateId;
     private int StyleId;
     private String Img;
+    private  int UserId;
 
-
-    public Host(int id, String name, String price, String person, String phone, String describe, int locateId, int styleId, String img) {
+    public Host(int id, String name, String price, String person, String phone, String describe, int locateId, int styleId, String img, int userId) {
         Id = id;
         Name = name;
         Price = price;
@@ -25,6 +25,7 @@ public class Host implements Serializable {
         LocateId = locateId;
         StyleId = styleId;
         Img = img;
+        UserId = userId;
     }
 
     public int getId() {
@@ -97,6 +98,14 @@ public class Host implements Serializable {
 
     public void setImg(String img) {
         Img = img;
+    }
+
+    public int getUserId() {
+        return UserId;
+    }
+
+    public void setUserId(int userId) {
+        UserId = userId;
     }
 }
 

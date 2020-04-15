@@ -29,6 +29,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import HostActivity.HostActivity;
 import util.server;
 
 public class LoginActivity extends AppCompatActivity {
@@ -79,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void Login(final String email, final String password){
         loading.setVisibility(View.VISIBLE);
-        btn_login.setVisibility(View.GONE);
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
                 new Response.Listener<String>() {
@@ -103,9 +104,11 @@ public class LoginActivity extends AppCompatActivity {
                                     sessionManager.createSession(name , email, id);
 
                                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    intent.putExtra("user_id",id);
                                     intent.putExtra("name", name);
                                     intent.putExtra("email",email);
                                     startActivity(intent);
+                                    finish();
                                     loading.setVisibility(View.GONE);
                                 }
                             }

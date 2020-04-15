@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.apprr.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 
 import org.json.JSONException;
@@ -35,6 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ProgressBar loading;
     private static String URL_REGIST = server.urlregest;
 
+    FloatingActionButton floatingActionButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,15 +48,33 @@ public class RegisterActivity extends AppCompatActivity {
         c_password = findViewById(R.id.cpassword);
         btn_regist= findViewById(R.id.btnregist);
 
-
+        floatingActionButton =(FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         btn_regist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Regist();
+                String nameV = name.getText().toString().trim();
+                String emailV = email.getText().toString().trim();
+                String passwordV = password.getText().toString().trim();
+                String c_passwordV = c_password.getText().toString().trim();
+                if( nameV.isEmpty() || emailV.isEmpty()  || passwordV.isEmpty() || c_passwordV.isEmpty()){
+                    Toast.makeText(RegisterActivity.this,"Please! Enter full information",Toast.LENGTH_SHORT).show();
+
+                }else{
+                    Regist();
+                }
+
+
             }
         });
     }
+
     private void Regist(){
         loading.setVisibility(View.VISIBLE);
         btn_regist.setVisibility(View.GONE);

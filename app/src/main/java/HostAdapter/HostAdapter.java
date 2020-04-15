@@ -83,7 +83,9 @@ public class HostAdapter extends RecyclerView.Adapter<HostAdapter.MyViewHolder> 
             public void onClick(View v) {
                 Intent intent = new Intent(context, UpdateHostActivity.class);
                 intent.putExtra("dataHome", host);
-                context.startActivity(intent);
+                //context.startActivity(intent);
+                intent.putExtra("ADDuser",data.get(position).getUserId());
+                context.startActivityForResult(intent,123);
 
 
                 //Toast.makeText(context, "Update "+ data.get(position).getName(), Toast.LENGTH_SHORT).show();

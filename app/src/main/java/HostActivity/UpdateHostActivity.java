@@ -310,7 +310,11 @@ public class UpdateHostActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 if(response.trim().equals("sucess")){
                     Toast.makeText(UpdateHostActivity.this, "Update sucessfully", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(UpdateHostActivity.this, HostActivity.class));
+                    //startActivity(new Intent(UpdateHostActivity.this, HostActivity.class));
+                    Intent intent= new Intent();
+                    intent.putExtra("reply_ID",Integer.toString(getIntent().getIntExtra("ADDuser",1)));
+                    setResult(RESULT_OK,intent);
+                    finish();
 
                 }else{
                     Toast.makeText(UpdateHostActivity.this, " error Update", Toast.LENGTH_SHORT).show();

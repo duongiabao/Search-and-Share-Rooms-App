@@ -1,13 +1,16 @@
 package com.example.apprr;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -61,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     int id = 0;
     String tenLoaiP= "";
     String hinhAnhLoaiP ="";
-
+    String User_ID;
     ArrayList<phongXT> arrPXT;
     phongXTAdapter PXTAdapter;
 
@@ -76,6 +79,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Anhxa();
+
+        if(getIntent().getStringExtra("user_id")!= null) {
+            User_ID = getIntent().getStringExtra("user_id");
+            //Toast.makeText(this, "ccc", Toast.LENGTH_SHORT).show();
+            Log.d("cminh",User_ID);
+        }
         if(checkCon.haveNetworkConnection(getApplicationContext())) {
             actionBar();
             ActionViewFlipper();
@@ -125,17 +134,29 @@ public class MainActivity extends AppCompatActivity {
 
     private void addRoom() {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(MainActivity.this, HostActivity.class);
-                startActivity(intent);
-                
+                intent.putExtra("user_id",User_ID);
+                startActivityForResult(intent, 123);
+
             }
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK) {
+            arrPXT.clear();
+            getDataPhongXT();
+
+        }
+    }
 
     private void GetOnItemListView() {
+
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -217,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
                     int locate_id =0;
                     String home_img ="";
                     int idPhong =0;
+
                     for( int i=0; i<response.length();i++){
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
@@ -230,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
                             home_img = jsonObject.getString("Home_img");
                             idPhong = jsonObject.getInt("Style_id");
                             arrPXT.add(new phongXT(Id,home_name,home_price,home_person,home_phone,home_describe,locate_id,home_img,idPhong));
+
                             PXTAdapter.notifyDataSetChanged();
 
 
@@ -304,9 +327,14 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_sort_by_size);
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
             @Override
+
             public void onClick(View v) {
+                //luu y
+                //floatingActionButton.setVisibility(View.INVISIBLE);
                 drawerlayout.openDrawer(GravityCompat.START);
             }
         });

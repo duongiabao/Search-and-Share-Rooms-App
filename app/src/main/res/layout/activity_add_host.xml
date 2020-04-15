@@ -107,6 +107,7 @@
                     android:id="@+id/text_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="phone" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -133,6 +134,7 @@
                     android:id="@+id/text_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:inputType="number"
                     android:hint="Price" />
             </com.google.android.material.textfield.TextInputLayout>
 

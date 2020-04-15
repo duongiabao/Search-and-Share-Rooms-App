@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".KTXActivity">
     <androidx.appcompat.widget.Toolbar
-        android:background="#3F51B5"
+        android:background="@color/colorPrimary"
         app:titleTextColor="#FFFFFF"
         app:title="Dormitory"
         android:id="@+id/toolBarKTX"

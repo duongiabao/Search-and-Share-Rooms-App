@@ -76,7 +76,7 @@ public class AddHostActivity extends AppCompatActivity {
     int locateID, StyleID;
     String ID, StyleId;
 
-
+    String UserAdd;
 
 
 
@@ -91,6 +91,8 @@ public class AddHostActivity extends AppCompatActivity {
         Anhxa();
         toolbar= findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
+
+        UserAdd= Integer.toString(getIntent().getIntExtra("ADDuser",1));
 
         recyclerViewStyle= findViewById(R.id.recyclerViewStyle);
         recyclerView= findViewById(R.id.recyclerView);
@@ -233,7 +235,10 @@ public class AddHostActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 if(response.trim().equals("sucess")){
                     Toast.makeText(AddHostActivity.this,"sucessfully",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(AddHostActivity.this, HostActivity.class));
+                    Intent intent= new Intent();
+                    intent.putExtra("reply_ID",UserAdd);
+                    setResult(RESULT_OK,intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(AddHostActivity.this,"error",Toast.LENGTH_SHORT).show();
@@ -241,6 +246,7 @@ public class AddHostActivity extends AppCompatActivity {
                 }
 
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
@@ -261,6 +267,7 @@ public class AddHostActivity extends AppCompatActivity {
                 params.put("locate_id",ID.trim());
                 params.put("style_id",StyleId.trim());
                 params.put("home_img",textImg.getText().toString().trim());
+                params.put("user_id",UserAdd.trim());
 
                 //params.put("home_img","chua co hinh");
 

@@ -1,6 +1,7 @@
 package HostActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,6 +49,7 @@ public class HostActivity extends AppCompatActivity {
     String name;
     String ID;
     Toolbar toolbar;
+    int User_ID;
 
     //String urlGetData="http://192.168.1.6/final_host/gethost.php";
     //String urlDeleteData="http://192.168.1.6/final_host/delete.php";
@@ -62,6 +65,11 @@ public class HostActivity extends AppCompatActivity {
         toolbar= findViewById(R.id.toobar);
         setSupportActionBar(toolbar);
 
+        if(getIntent().getStringExtra("user_id")!= null) {
+            User_ID = Integer.parseInt(getIntent().getStringExtra("user_id"));
+            //Toast.makeText(this, "ccc", Toast.LENGTH_SHORT).show();
+            Log.d("cminh",Integer.toString(User_ID));
+        }
 
         recyclerView= findViewById(R.id.recyclerView);
         data= new ArrayList<>();
@@ -86,9 +94,22 @@ public class HostActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent= new Intent();
+                intent.putExtra("reply_ID",User_ID);
+
+                setResult(RESULT_OK,intent);
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent datas) {
+        super.onActivityResult(requestCode, resultCode, datas);
+        if(resultCode == RESULT_OK){
+            User_ID = Integer.parseInt(datas.getStringExtra("reply_ID"));
+            getData(urlGetData);
+        }
     }
 
     //lay du lieu
@@ -102,18 +123,21 @@ public class HostActivity extends AppCompatActivity {
                 for(int i=0;i<response.length();i++){
                     try {
                         JSONObject object= response.getJSONObject(i);
-                        data.add(new Host(
-                                object.getInt("Id"),
-                                object.getString("Home_name"),
-                                object.getString("Home_price"),
-                                object.getString("Home_person"),
-                                object.getString("Home_phone"),
-                                object.getString("Home_describe"),
-                                object.getInt("Locate_id"),
-                                object.getInt("Style_id"),
-                                object.getString("Home_img")
+                        if(User_ID == object.getInt("User_id")) {
+                            data.add(new Host(
+                                    object.getInt("Id"),
+                                    object.getString("Home_name"),
+                                    object.getString("Home_price"),
+                                    object.getString("Home_person"),
+                                    object.getString("Home_phone"),
+                                    object.getString("Home_describe"),
+                                    object.getInt("Locate_id"),
+                                    object.getInt("Style_id"),
+                                    object.getString("Home_img"),
+                                    object.getInt("User_id")
 
-                        ));
+                            ));
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -176,7 +200,8 @@ public class HostActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.menu_add:
                 Intent intent= new Intent(HostActivity.this, AddHostActivity.class);
-                startActivity(intent);
+                intent.putExtra("ADDuser",User_ID);
+                startActivityForResult(intent,123);
                 break;
             default:
                 return super.onOptionsItemSelected(item);
@@ -185,14 +210,6 @@ public class HostActivity extends AppCompatActivity {
         return true;
     }
 
-
-
-
-
-
-    ///////////
-
-    ////
 
 
 }

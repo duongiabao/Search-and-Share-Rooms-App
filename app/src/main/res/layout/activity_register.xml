@@ -5,15 +5,33 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="30dp"
-    android:paddingRight="30dp"
-    android:paddingTop="80dp"
+
+
     android:background="@drawable/building"
     tools:context="LoginActivity.RegisterActivity">
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_margin="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:clickable="true"
+        android:src="@drawable/ic_back"
+        android:tint="@android:color/white"
+        app:backgroundTint="#00BCD4"
+        app:fabSize="auto" />
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:src="@drawable/logo" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
 
         <EditText
             android:id="@+id/name"
@@ -26,7 +44,9 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
         <EditText
             android:id="@+id/email"
             android:hint="Email"
@@ -39,7 +59,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
         <EditText
             android:id="@+id/password"
             android:hint="Password"
@@ -52,7 +74,9 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
         <EditText
             android:id="@+id/cpassword"
             android:hint="Confirm Password"
@@ -63,6 +87,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <ProgressBar
+
         android:id="@+id/loading"
         android:layout_marginTop="30dp"
         android:visibility="gone"
@@ -70,6 +95,8 @@
         android:layout_height="wrap_content"/>
 
     <Button
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
         android:id="@+id/btnregist"
         android:layout_width="match_parent"
         android:layout_height="55dp"
