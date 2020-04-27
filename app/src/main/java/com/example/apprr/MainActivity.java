@@ -8,9 +8,13 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -39,12 +43,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import HostActivity.AddHostActivity;
 import HostActivity.HostActivity;
 import HostModel.Location;
 import LoginActivity.HomeActivity;
 import UserAdapter.loaiPhongAdapter;
 import UserAdapter.location;
 import UserAdapter.phongXTAdapter;
+import Usermodel.LocationModel;
 import Usermodel.loaiPhong;
 import Usermodel.phongXT;
 import util.checkCon;
@@ -70,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton;
 
-    ArrayList<Location> arrL;
+    ArrayList<LocationModel> arrL;
     location locationAdapter;
     RecyclerView recyclerviewL;
     @Override
@@ -93,12 +99,30 @@ public class MainActivity extends AppCompatActivity {
             GetOnItemListView();
             addRoom();
             getLocation();
-
+            getOnItemRecyclerView();
         }else{
             checkCon.showToast(getApplicationContext(),"Hay kiem tra lai ket noi");
             finish();
         }
 
+    }
+
+    private void getOnItemRecyclerView() {
+        recyclerviewL.addOnItemTouchListener(
+                new RecyclerItemClickListener(MainActivity.this, recyclerviewL ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(MainActivity.this,LocationActivity.class);
+                        intent.putExtra("location",arrL.get(position).getId());
+                        intent.putExtra("nameLocation",arrL.get(position).getLocation());
+
+                        startActivity(intent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
     }
 
     private void getLocation() {
@@ -109,12 +133,14 @@ public class MainActivity extends AppCompatActivity {
                 if (response != null) {
                     int Id = 0;
                     String Location = "";
+                    String Image ="";
                     for (int i = 0; i < response.length(); i++) {
                         try {
                             JSONObject jsonObject = response.getJSONObject(i);
                             Id = jsonObject.getInt("Id");
                             Location =jsonObject.getString("Location");
-                            arrL.add(new Location(Id,Location));
+                            Image = jsonObject.getString("Image");
+                            arrL.add(new LocationModel(Id,Location, Image));
                             locationAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -174,10 +200,10 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         if(checkCon.haveNetworkConnection(getApplicationContext())){
 
-                            Intent intent = new Intent(MainActivity.this,PhongActivity.class);
-                            //do id loaip trung voi id case nen de position
-                            intent.putExtra("idloaiPhong",arrloaip.get(position).getId());
-                            startActivity(intent);
+                                Intent intent = new Intent(MainActivity.this,PhongActivity.class);
+                                //do id loaip trung voi id case nen de position
+                                intent.putExtra("idloaiPhong",arrloaip.get(position).getId());
+                                startActivity(intent);
 
 
                         }else{
@@ -368,4 +394,49 @@ public class MainActivity extends AppCompatActivity {
         recyclerviewL.setLayoutManager(new GridLayoutManager(getApplicationContext(),3));
         recyclerviewL.setAdapter(locationAdapter);
     }
+    // on click recyclerView
+    public static class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+        private OnItemClickListener mListener;
+
+        public interface OnItemClickListener {
+            public void onItemClick(View view, int position);
+
+            public void onLongItemClick(View view, int position);
+        }
+
+        GestureDetector mGestureDetector;
+
+        public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
+            mListener = listener;
+            mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recyclerView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && mListener != null) {
+                        mListener.onLongItemClick(child, recyclerView.getChildAdapterPosition(child));
+                    }
+                }
+            });
+        }
+
+        @Override public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+            View childView = view.findChildViewUnder(e.getX(), e.getY());
+            if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+                mListener.onItemClick(childView, view.getChildAdapterPosition(childView));
+                return true;
+            }
+            return false;
+        }
+
+        @Override public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) { }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
+    }
+
 }

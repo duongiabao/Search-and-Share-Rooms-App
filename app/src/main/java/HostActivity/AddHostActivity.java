@@ -2,21 +2,32 @@ package HostActivity;
 
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +47,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,6 +83,13 @@ public class AddHostActivity extends AppCompatActivity {
     AddHostAdapter adapter;
     StyleAdapter styleAdapter;
 
+    //upload img
+    ImageView imageView;
+    Button buttonChoose;
+    final int CODE_GALLERY_REQUEST=999;
+    Bitmap bitmap;
+
+
     List<Location> data;
     List<Style> datas;
     //List<Location> data1;
@@ -77,6 +98,7 @@ public class AddHostActivity extends AppCompatActivity {
     String ID, StyleId;
 
     String UserAdd;
+
 
 
 
@@ -103,11 +125,14 @@ public class AddHostActivity extends AppCompatActivity {
         adapter= new AddHostAdapter(AddHostActivity.this, data);
         styleAdapter= new StyleAdapter(AddHostActivity.this,datas);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewStyle.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerViewStyle.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        recyclerViewStyle.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(AddHostActivity.this,DividerItemDecoration.VERTICAL));
-        recyclerViewStyle.addItemDecoration(new DividerItemDecoration(AddHostActivity.this,DividerItemDecoration.VERTICAL));
+        //recyclerView.addItemDecoration(new DividerItemDecoration(AddHostActivity.this,DividerItemDecoration.HORIZONTAL));
+        //recyclerViewStyle.addItemDecoration(new DividerItemDecoration(AddHostActivity.this,DividerItemDecoration.HORIZONTAL));
+
 
         recyclerView.setAdapter(adapter);
         recyclerViewStyle.setAdapter(styleAdapter);
@@ -164,8 +189,9 @@ public class AddHostActivity extends AppCompatActivity {
                 String person= textPerson.getText().toString().trim();
                 String phone= textPhone.getText().toString().trim();
                 String describe= textDescribe.getText().toString().trim();
-                String img= textImg.getText().toString().trim();
-                if(name.isEmpty() || price.isEmpty() || person.isEmpty() || phone.isEmpty() || describe.isEmpty() || img.isEmpty()){
+                //String img= textImg.getText().toString().trim();
+
+                if(name.isEmpty() || price.isEmpty() || person.isEmpty() || phone.isEmpty() || describe.isEmpty() ){
                     Toast.makeText(AddHostActivity.this,"Please! Enter full information",Toast.LENGTH_SHORT).show();
 
                 }else{
@@ -186,7 +212,12 @@ public class AddHostActivity extends AppCompatActivity {
 
 
 
-
+        buttonChoose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ActivityCompat.requestPermissions(AddHostActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},CODE_GALLERY_REQUEST);
+            }
+        });
 
     }
 
@@ -208,16 +239,18 @@ public class AddHostActivity extends AppCompatActivity {
         textPersonLayout= findViewById(R.id.text_person_layout);
         textPhoneLayout= findViewById(R.id.text_phone_layout);
         textDescribeLayout= findViewById(R.id.text_describe_layout);
-        textImgLayout= findViewById(R.id.text_img_layout);
+        //textImgLayout= findViewById(R.id.text_img_layout);
 
         //textLocationLayout= findViewById(R.id.text_locate_layout);
+        buttonChoose =findViewById(R.id.button1);
+        imageView = findViewById(R.id.imageViewKhac);
 
         textName= findViewById(R.id.text_name);
         textPrice= findViewById(R.id.text_price);
         textPerson= findViewById(R.id.text_person);
         textPhone= findViewById(R.id.text_phone);
         textDescribe= findViewById(R.id.text_describe);
-        textImg= findViewById(R.id.text_img);
+        //textImg= findViewById(R.id.text_img);
         //textLocation= findViewById(R.id.text_locate);
 
         btnSave= findViewById(R.id.btnsave);
@@ -259,6 +292,9 @@ public class AddHostActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> params= new HashMap<>();
+
+                String imageData= imageToString(bitmap);
+
                 params.put("home_name",textName.getText().toString().trim());
                 params.put("home_price",textPrice.getText().toString().trim());
                 params.put("home_person",textPerson.getText().toString().trim());
@@ -266,8 +302,11 @@ public class AddHostActivity extends AppCompatActivity {
                 params.put("home_describe",textDescribe.getText().toString().trim());
                 params.put("locate_id",ID.trim());
                 params.put("style_id",StyleId.trim());
-                params.put("home_img",textImg.getText().toString().trim());
+                params.put("home_img",imageData);
                 params.put("user_id",UserAdd.trim());
+
+                /////////////
+
 
                 //params.put("home_img","chua co hinh");
 
@@ -293,7 +332,6 @@ public class AddHostActivity extends AppCompatActivity {
                         data.add(new Location(
                                 object.getInt("Id"),
                                 object.getString("Location")
-
                         ));
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -390,5 +428,48 @@ public class AddHostActivity extends AppCompatActivity {
         public void onRequestDisallowInterceptTouchEvent (boolean disallowIntercept){}
     }
 
+    ////////////////////////////////////////////////
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==CODE_GALLERY_REQUEST){
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                Intent intent= new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent,"Select Image"), CODE_GALLERY_REQUEST);
+
+            }else {
+                Toast.makeText(getApplicationContext(), "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    ///////////////////////////////////////////////
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == CODE_GALLERY_REQUEST && resultCode == RESULT_OK && data!=null){
+            Uri filePath = data.getData();
+            try {
+                InputStream inputStream= getContentResolver().openInputStream(filePath);
+                bitmap = BitmapFactory.decodeStream(inputStream);
+                imageView.setImageBitmap(bitmap);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private String imageToString(Bitmap bitmap){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, outputStream);
+        byte[] imageBytes = outputStream.toByteArray();
+
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return  encodedImage;
+    }
 
 }

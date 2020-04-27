@@ -4,9 +4,12 @@ package LoginActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -14,12 +17,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +37,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.apprr.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +48,9 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import HostActivity.UpdateHostActivity;
 import de.hdodenhof.circleimageview.CircleImageView;
+import dmax.dialog.SpotsDialog;
 import util.server;
 
 public class HomeActivity extends AppCompatActivity {
@@ -57,8 +65,8 @@ public class HomeActivity extends AppCompatActivity {
     private Menu action;
     private Bitmap bitmap;
     CircleImageView profile_image;
-
-    FloatingActionButton floatingActionButton;
+    Toolbar toolbar;
+    //FloatingActionButton floatingActionButton;
 
 
     @Override
@@ -75,16 +83,19 @@ public class HomeActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         btn_logout = findViewById(R.id.btn_logout);
         btn_photo_upload = findViewById(R.id.btn_photo);
+
+
+
         profile_image = findViewById(R.id.profile_image);
-
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
+        toolbar = findViewById(R.id.toolBar);
+        //floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
+        //floatingActionButton.setOnClickListener(new View.OnClickListener() {
+        //    @Override
+        //    public void onClick(View v) {
+        //        finish();
+        //    }
+        //});
+        ActionBar();
         HashMap<String, String> user = sessionManager.getUserDetail();
         getId = user.get(sessionManager.ID);
 
@@ -102,7 +113,22 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
+
+
+    private void ActionBar() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+    }
+
     //lấy user detail
     private void getUserDetail(){
 
@@ -129,9 +155,14 @@ public class HomeActivity extends AppCompatActivity {
 
                                     String strName = object.getString("name").trim();
                                     String strEmail = object.getString("email").trim();
-
+                                    String strPhoto = object.getString("photo").trim();
                                     name.setText(strName);
                                     email.setText(strEmail);
+                                    Picasso.with(HomeActivity.this).load(strPhoto)
+                                            .placeholder(R.drawable.aa2)
+                                            .error(R.drawable.aa)
+                                            .into(profile_image);
+
                                 }
                             }
                         }catch (JSONException e){
@@ -172,11 +203,10 @@ public class HomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu_action, menu);
+
+        getMenuInflater().inflate(R.menu.menu_action, menu);
         action = menu;
         action.findItem(R.id.menu_save).setVisible(false);
-
         return true;
     }
 
@@ -319,7 +349,7 @@ public class HomeActivity extends AppCompatActivity {
                         }catch (JSONException e){
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(HomeActivity.this,"Try again !!! "+e.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(HomeActivity.this,"Try again !!! ",Toast.LENGTH_SHORT).show();
                         }
 
                     }

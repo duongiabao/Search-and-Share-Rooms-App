@@ -5,24 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="LoginActivity.HomeActivity">
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_margin="5dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:src="@drawable/ic_back"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="auto" />
+    <androidx.appcompat.widget.Toolbar
+        android:background="@color/colorPrimary"
+        app:titleTextColor="#FFFFFF"
+        app:title="Motel"
+        android:id="@+id/toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"/>
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile_image"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:src="@drawable/logo" />
+        android:layout_marginTop="80dp"
+        android:src="@drawable/ic_img" />
 
     <Button
         android:id="@+id/btn_photo"
@@ -64,6 +61,7 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_text1"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_below="@+id/layout_text"
@@ -89,6 +87,9 @@
     </LinearLayout>
 
 
+
+
+
     <Button
         android:id="@+id/btn_logout"
         android:layout_width="match_parent"
@@ -98,6 +99,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginBottom="126dp"
+
         android:backgroundTint="@color/colorPrimary"
         android:text="LOGOUT"
         android:textColor="@android:color/white" />

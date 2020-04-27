@@ -11,7 +11,7 @@
         android:id="@+id/toobar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#3F51B5"
+        android:background="@color/colorPrimary"
         app:title="Update home"
         app:titleTextColor="#ffffff">
 
@@ -28,6 +28,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".MainActivity"
+                android:gravity="center">
             <TextView
                 android:id="@+id/textView8"
                 android:layout_width="match_parent"
@@ -41,101 +47,172 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="wrap_content" />
+            </LinearLayout>
 
-            <TextView
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:id="@+id/textView10"
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Choose the style: " />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewStyleUpadate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_img_layout_update"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_img_update"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:context=".MainActivity"
+                android:gravity="center">
+                <TextView
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:id="@+id/textView10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="URL IMG" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Choose the style: " />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_name_layout_update"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewStyleUpadate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    tools:context=".MainActivity"
+                    android:gravity="center">
+                    <TextView
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Choose the image: " />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_name_update"
+                    <ImageView
+                        android:id="@+id/imageViewUp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="5dp"
+                        app:srcCompat="@drawable/ca" />
+
+                    <Button
+                        android:id="@+id/buttonUp"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0"
+                        android:text="choose" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_name_layout_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Name" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_describe_layout_update"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_name_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Name" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView5"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_describe_update"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_describe_layout_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Describe" />
+                    android:layout_marginBottom="5dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_describe_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Describe" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_phone_layout_update"
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView7"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_phone_update"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_phone_layout_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="phone" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_person_layout_update"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_phone_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView8"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_person_update"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_person_layout_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Person" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="5dp">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/text_price_layout_update"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_person_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Person" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+
+                android:layout_margin="5dp"
+                app:cardCornerRadius="10dp"
+                android:id="@+id/cardView9"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp">
+                android:layout_height="wrap_content">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/text_price_update"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_price_layout_update"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:hint="Price" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_marginBottom="5dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/text_price_update"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:hint="Price" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </ScrollView>
 

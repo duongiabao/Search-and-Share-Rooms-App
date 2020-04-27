@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import util.server;
 
@@ -35,8 +37,17 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btn_regist;
     private ProgressBar loading;
     private static String URL_REGIST = server.urlregest;
-
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile(
+            "^" +
+                    "(?=.*[0-9])" +
+                    "(?=.*[a-z])" +
+                    "(?=.*[A-Z])" +
+                    "(?=.*[@#$%^&*+=])" +
+                    "(?=\\S+$)" +
+                    ".{6,}" +
+                    "$");
     FloatingActionButton floatingActionButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,9 +57,9 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
         c_password = findViewById(R.id.cpassword);
-        btn_regist= findViewById(R.id.btnregist);
+        btn_regist = findViewById(R.id.btnregist);
 
-        floatingActionButton =(FloatingActionButton) findViewById(R.id.floatingActionButton);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,10 +74,16 @@ public class RegisterActivity extends AppCompatActivity {
                 String emailV = email.getText().toString().trim();
                 String passwordV = password.getText().toString().trim();
                 String c_passwordV = c_password.getText().toString().trim();
-                if( nameV.isEmpty() || emailV.isEmpty()  || passwordV.isEmpty() || c_passwordV.isEmpty()){
-                    Toast.makeText(RegisterActivity.this,"Please! Enter full information",Toast.LENGTH_SHORT).show();
+                if (nameV.isEmpty() || emailV.isEmpty() || passwordV.isEmpty() || c_passwordV.isEmpty()) {
+                    Toast.makeText(RegisterActivity.this, "Please! Enter full information", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(emailV).matches()) {
+                    email.setError("Please enter a valid email address");
+
+                } else if (!PASSWORD_PATTERN.matcher(passwordV).matches()){
+                    password.setError("Password too weak");
+                }
+                else{
                     Regist();
                 }
 
@@ -75,7 +92,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
-    private void Regist(){
+    private void Regist() {
         loading.setVisibility(View.VISIBLE);
         btn_regist.setVisibility(View.GONE);
 
@@ -87,21 +104,21 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try{
+                        try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("success");
 
-                            if (success.equals("1")){
-                                Toast.makeText(RegisterActivity.this,"Register Success",Toast.LENGTH_SHORT).show();
+                            if (success.equals("1")) {
+                                Toast.makeText(RegisterActivity.this, "Register Success", Toast.LENGTH_SHORT).show();
 
                                 startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
 
                             }
 
 
-                        }catch (JSONException e){
+                        } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this,"Register Error! " + e.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "Register Error! " + e.toString(), Toast.LENGTH_SHORT).show();
                             loading.setVisibility(View.GONE);
                             btn_regist.setVisibility(View.VISIBLE);
                         }
@@ -114,8 +131,7 @@ public class RegisterActivity extends AppCompatActivity {
                         loading.setVisibility(View.GONE);
                         btn_regist.setVisibility(View.VISIBLE);
                     }
-                })
-        {
+                }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();

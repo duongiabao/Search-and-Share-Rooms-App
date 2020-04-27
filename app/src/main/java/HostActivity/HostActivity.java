@@ -138,6 +138,9 @@ public class HostActivity extends AppCompatActivity {
 
                             ));
                         }
+                        if(data.isEmpty()){
+                            Toast.makeText(HostActivity.this,"Create something new :))",Toast.LENGTH_SHORT).show();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

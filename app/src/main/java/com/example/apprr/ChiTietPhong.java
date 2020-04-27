@@ -66,21 +66,21 @@ public class ChiTietPhong extends AppCompatActivity {
 
     private void genMockData() {
         data= new ArrayList<TienNghi>();
-        data.add(new TienNghi("May lanh","https://cdn4.iconfinder.com/data/icons/hotel-service-5/300/air_conditioner-512.png"));
-        data.add(new TienNghi("WC rieng","https://images.vexels.com/media/users/3/152449/isolated/preview/343d8347c9c13556669231babad91b2d-flush-toilet-stroke-icon-by-vexels.png"));
-        data.add(new TienNghi("Cho de xe","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTltQp12m9OWi_X5j0MUu2vskrzQS7Ku_R3fLopB95s_yRad2ux&usqp=CAU"));
-        data.add(new TienNghi("Wifi","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS--2zRzbXoCzD0EaXek-JBUMyUgMc5Zyi7t4stTaYK1hbfq7Ac&usqp=CAU"));
-        data.add(new TienNghi("Tu do","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQL5DTzpYQ6T0C5i6XwZSuTW1VPdwYhslkHV2FAZeTBsavqjMRK&usqp=CAU"));
-        data.add(new TienNghi("gac lung ","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNioFtn1pjlj-vlj8hsDSUN9OWixSPBq_IsXds-FAk5zaACgrX&usqp=CAU"));
-        data.add(new TienNghi("Tu lanh","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRu1NCx0Se1eK_CQKHim3jNuHG3g9yYPy4E7VJJwFcsQYEYWLYO&usqp=CAU"));
-        data.add(new TienNghi("May giac","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSS3_-pO5x5FQUB0SF2dcMF8pQLGV4NmtKA6dqw8s34Sjjap4TQ&usqp=CAU"));
+        data.add(new TienNghi("Máy lạnh","https://cdn4.iconfinder.com/data/icons/hotel-service-5/300/air_conditioner-512.png"));
+        data.add(new TienNghi("WC riêng","https://images.vexels.com/media/users/3/152449/isolated/preview/343d8347c9c13556669231babad91b2d-flush-toilet-stroke-icon-by-vexels.png"));
+        data.add(new TienNghi("Chỗ để xe","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTltQp12m9OWi_X5j0MUu2vskrzQS7Ku_R3fLopB95s_yRad2ux&usqp=CAU"));
+        data.add(new TienNghi("Wifi","https://img.icons8.com/android/2x/wifi.png"));
+        data.add(new TienNghi("Tự do","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQL5DTzpYQ6T0C5i6XwZSuTW1VPdwYhslkHV2FAZeTBsavqjMRK&usqp=CAU"));
+        data.add(new TienNghi("Gác lửng ","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTNioFtn1pjlj-vlj8hsDSUN9OWixSPBq_IsXds-FAk5zaACgrX&usqp=CAU"));
+        data.add(new TienNghi("Tủ lạnh","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRu1NCx0Se1eK_CQKHim3jNuHG3g9yYPy4E7VJJwFcsQYEYWLYO&usqp=CAU"));
+        data.add(new TienNghi("Máy giặt","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSS3_-pO5x5FQUB0SF2dcMF8pQLGV4NmtKA6dqw8s34Sjjap4TQ&usqp=CAU"));
         data.add(new TienNghi("An ninh","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQ64bZjW7hvFKUcw73-JwcEZguwpj0HVfNAXQUwcIaMnRuvm5MF&usqp=CAU"));
-        data.add(new TienNghi("Nha bep","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTPE8kh3D1SzaM0qYE26rQKVSuJcfyazkV1BB7vjwUgUaiOxp_d&usqp=CAU"));
+        data.add(new TienNghi("Nhà bếp","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTPE8kh3D1SzaM0qYE26rQKVSuJcfyazkV1BB7vjwUgUaiOxp_d&usqp=CAU"));
         data.add(new TienNghi("Tivi","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR2PLC5rhwmQNHeBPGAtg6eXoC1Clx-EzIdCnF2ML9J8nw4Ko9S&usqp=CAU"));
-        data.add(new TienNghi("Thu cung","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcS2L9_ig9tAJR2iTPivflYFzUnJU2EY2uxk0bEk8NAVzCMc1iV2&usqp=CAU"));
-        data.add(new TienNghi("Tu do","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUiy2qgZFqHahG1xUc1uMwh4sfbfkmXwDBLqeGkrOgfVXIzr-7&usqp=CAU"));
-        data.add(new TienNghi("Cua so","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsdke8sRUPuOXzrTvWcbMDR5SZ0Mo5BwoRdffhfDrf9uM13k3h&usqp=CAU"));
-        data.add(new TienNghi("May nuoc nong","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR-x8ad5SO40R3m2dW5CY-eBmFnx-CeRX0E_LFWGlKLivmzbqvn&usqp=CAU"));
+        data.add(new TienNghi("Thú cưng","https://img.icons8.com/ios/2x/pet-commands-summon.png"));
+        data.add(new TienNghi("Tủ đồ","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTUiy2qgZFqHahG1xUc1uMwh4sfbfkmXwDBLqeGkrOgfVXIzr-7&usqp=CAU"));
+        data.add(new TienNghi("Cửa sổ","https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcTsdke8sRUPuOXzrTvWcbMDR5SZ0Mo5BwoRdffhfDrf9uM13k3h&usqp=CAU"));
+        data.add(new TienNghi("Máy nước nóng","https://img.icons8.com/wired/2x/water-heater.png"));
 
     }
 

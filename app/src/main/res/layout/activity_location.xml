@@ -5,20 +5,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".PhongActivity">
+    tools:context=".LocationActivity">
     <androidx.appcompat.widget.Toolbar
         android:background="@color/colorPrimary"
         app:titleTextColor="#FFFFFF"
-        app:title="Motel"
-        android:id="@+id/toolBarPhong"
+        android:id="@+id/toolBarLocation"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+        <TextView
+            android:textColor="#FFFFFF"
+            android:id="@+id/textL"
+            android:text="Minh"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
 
     </androidx.appcompat.widget.Toolbar>
     <ListView
         android:background="#DCD9D9"
-        android:id="@+id/listViewPhong"
+        android:id="@+id/listViewLocation"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

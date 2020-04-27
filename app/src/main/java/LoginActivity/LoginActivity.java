@@ -100,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String name = object.getString("name").trim();
                                     String email = object.getString("email").trim();
                                     String id = object.getString("id").trim();
+                                    String photo = object.getString("photo").trim();
 
                                     sessionManager.createSession(name , email, id);
 
@@ -107,17 +108,22 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("user_id",id);
                                     intent.putExtra("name", name);
                                     intent.putExtra("email",email);
+                                    intent.putExtra("photo",photo);
                                     startActivity(intent);
                                     finish();
                                     loading.setVisibility(View.GONE);
                                 }
+                            }else{
+                                loading.setVisibility(View.GONE);
+                                Toast.makeText(LoginActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
+
                             }
                         }catch (JSONException e){
 
                             e.printStackTrace();
                             loading.setVisibility(View.GONE);
                             btn_login.setVisibility(View.VISIBLE);
-                            Toast.makeText(LoginActivity.this,"Error" +e.toString(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this,"Incorrect email",Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -126,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         loading.setVisibility(View.GONE);
                         btn_login.setVisibility(View.VISIBLE);
-                        Toast.makeText(LoginActivity.this,"Error" +error.toString(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this,"Error" ,Toast.LENGTH_SHORT).show();
 
                     }
                 })
